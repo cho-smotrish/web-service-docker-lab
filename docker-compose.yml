@@ -1,0 +1,39 @@
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+      web-service:
+        condition: service_started
+
+  db:
+    image: postgres:16-alpine
+    env_file:
+      - .env
+    volumes:
+      - cocktails_data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./db/cocktails.csv:/docker-entrypoint-initdb.d/cocktails.csv:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d cocktails"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  web-service:
+    build: ./web-service
+    expose:
+      - "5001"
+
+volumes:
+  cocktails_data:

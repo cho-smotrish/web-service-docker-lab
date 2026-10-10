@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Барная карта</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="page">
+        <section class="card">
+            <h1>Барная карта</h1>
+            <p class="subtitle">Рецепты и поиск коктейлей</p>
+            <div class="actions">
+                <button id="loadButton" type="button">Показать барную карту</button>
+                <div class="search-line">
+                    <input id="searchInput" type="search" placeholder="Название или основа">
+                    <button id="searchButton" type="button">Найти коктейли</button>
+                </div>
+            </div>
+            <div id="status" class="status" aria-live="polite"></div>
+            <div id="result" class="result"></div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
